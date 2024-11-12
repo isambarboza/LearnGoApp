@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
 import SelectData from '../Components/SelectData';
 import DropDown from '../Components/DropDown';
 
-const TelaCadastro = ({setCadastro}) => {
+const TelaCadastro = ({ setCadastro }) => {
     const [nome, setNome] = useState('');
-    const [dataNascimento, setDataNascimento] = useState(new Date());
+    const [dataNascimento, setDataNascimento] = useState();
     const [rm, setRm] = useState('');
     const [faculdade, setFaculdade] = useState('');
     const [curso, setCurso] = useState('');
@@ -13,27 +13,86 @@ const TelaCadastro = ({setCadastro}) => {
     const [email, setEmail] = useState('');
     const [endereco, setEndereco] = useState('');
 
-    const faculdades = [
-        { title: 'USC- Universidade do Sagrado Coração' },
-        { title: 'FIB- Faculdade Integrada de Bauru' },
-        { title: 'UNESP- Universidade Estadual Paulista' },
-    ];
-    const cursos = [{ title: 'Administração' }, { title: 'Engenharia Civil' }, { title: 'Psicologia' }];
+    const [faculdades, setFaculdades] = useState([]);
 
-    const handleCadastro = () => {
-        console.log('Cadastro enviado');
-        setCadastro( false );
+    async function getFaculdades() {
+        await fetch(
+            process.env.EXPO_PUBLIC_URL + "api/Faculdade/GetAllFaculdade/",
+            { method: "GET" }
+        )
+            .then(res => res.json())
+            .then(json => {
+                setFaculdades(json);
+            })
+            .catch(err => {
+                console.error('Erro ao buscar faculdade: ', err);
+                Alert.alert('Erro', 'Não foi possível buscar as faculdade.');
+            });
+    }
+
+    async function Cadastrar() {
+        await fetch(
+            process.env.EXPO_PUBLIC_URL + 'api/Cadastro/CreateCadastro',
+            {
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    cadastroNomeCompleto: nome,
+                    cadastroDataNascimento: dataNascimento,
+                    cadastroEmail: email,
+                    cadastroRm: rm,
+                    cadastroEndereço: endereco,
+                    cadastroCurso: curso,
+                    cadastroSenha: senha,
+                    faculdadeId: faculdade.faculdadeId
+                })
+            }
+        )
+        .then(response => response.json())
+        .then(() => {
+            Alert.alert(
+                "Sucesso!",
+                "Cadastro realizado com sucesso!",
+                [{ text: "OK", onPress: () => setCadastro(true) }]
+            );
+
+            // Limpa os campos após o cadastro
+            setNome('');
+            setDataNascimento(null);
+            setRm('');
+            setFaculdade('');
+            setCurso('');
+            setSenha('');
+            setEmail('');
+            setEndereco('');
+        })
+        .catch(err => {
+            console.log(err);
+            Alert.alert("Erro", "Ocorreu um erro ao se cadastrar: " + err.message);
+        });
+    }
+
+    useEffect(() => {
+        getFaculdades();
+    }, []);
+
+    // Função para voltar
+    const handleVoltar = () => {
+        setCadastro(false); // Atualiza o estado para voltar à tela anterior
     };
 
     return (
         <>
             <View style={styles.menu}>
-            <Image
-                    source={require('../../assets/LearnGo.png')} 
+                <Image
+                    source={require('../../assets/LearnGo.png')}
                     style={styles.logo}
-                    resizeMode="contain" 
+                    resizeMode="contain"
                 />
             </View>
+
             <ScrollView contentContainerStyle={styles.container}>
                 <Text style={styles.title}>Faça seu Cadastro</Text>
 
@@ -42,46 +101,56 @@ const TelaCadastro = ({setCadastro}) => {
                     placeholder="Nome Completo"
                     placeholderTextColor="#fff"
                     value={nome}
-                    onChangeText={setNome}
+                    onChangeText={(value) => setNome(value)}
                 />
 
-                <SelectData label="Data De Nascimento" />
+                <SelectData label="Data De Nascimento" saveDate={setDataNascimento} />
                 <TextInput
                     style={styles.input}
                     placeholder="E-mail"
                     placeholderTextColor="#fff"
                     value={email}
-                    onChangeText={setEmail}
+                    onChangeText={(value) => setEmail(value)}
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Registro de Matrícula (RM)"
                     placeholderTextColor="#fff"
                     value={rm}
-                    onChangeText={setRm}
+                    onChangeText={(value) => setRm(value)}
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Endereço"
                     placeholderTextColor="#fff"
                     value={endereco}
-                    onChangeText={setEndereco}
+                    onChangeText={(value) => setEndereco(value)}
                 />
 
-                <DropDown label="Faculdades" data={faculdades} />
-                <DropDown label="Cursos" data={cursos} />
+                <DropDown label="Faculdades" data={faculdades} setId={setFaculdade} selecionado={faculdade} />
 
+                <TextInput
+                    style={styles.input}
+                    placeholder="Curso"
+                    placeholderTextColor="#fff"
+                    value={curso}
+                    onChangeText={(value) => setCurso(value)}
+                />
                 <TextInput
                     style={styles.input}
                     placeholder="Senha"
                     placeholderTextColor="#fff"
                     secureTextEntry
                     value={senha}
-                    onChangeText={setSenha}
+                    onChangeText={(value) => setSenha(value)}
                 />
 
-                <TouchableOpacity style={styles.button} onPress={handleCadastro}>
+                <TouchableOpacity style={styles.button} onPress={Cadastrar}>
                     <Text style={styles.buttonText}>CADASTRA-SE</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.voltarButton} onPress={handleVoltar}>
+                    <Text style={styles.voltarButtonText}>Voltar</Text>
                 </TouchableOpacity>
             </ScrollView>
         </>
@@ -103,8 +172,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     logo: {
-        width: 100, 
-        height: 57, 
+        width: 100,
+        height: 57,
     },
     title: {
         fontSize: 28,
@@ -146,6 +215,17 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 16,
         letterSpacing: 1,
+    },
+    voltarButton: {
+        backgroundColor: '#20164d',
+        padding: 15,
+        borderRadius: 10,
+        marginTop: 10,
+    },
+    voltarButtonText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: 'bold',
     },
 });
 

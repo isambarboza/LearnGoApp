@@ -15,6 +15,7 @@ import TelaFaculdade from '../Pages/TelaFaculdade';
 
 
 
+
 const Tab = createBottomTabNavigator();
 
 export default function Rotas() {
@@ -64,6 +65,7 @@ export default function Rotas() {
                         ),
                     }}
                 />
+               
                 <Tab.Screen
                     name="Perfil"
                     component={Perfil}

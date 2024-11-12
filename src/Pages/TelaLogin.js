@@ -9,7 +9,7 @@ const LoginScreen = ({ setCadastro }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [recoveryEmail, setRecoveryEmail] = useState('');
 
-  const {Login} = useContext( AuthContext );
+  const {Login, error } = useContext( AuthContext );
 
   const handleLogin = () => {
     Login( email , password );
@@ -19,7 +19,7 @@ const LoginScreen = ({ setCadastro }) => {
     if (recoveryEmail === '') {
       Alert.alert('Erro', 'Por favor, insira seu e-mail para recuperação.');
     } else {
-      Alert.alert('Sucesso', `E-mail de recuperação enviado para: ${recoveryEmail}`);
+      Alert.alert('Sucesso',' E-mail de recuperação enviado para: ${recoveryEmail}');
       setModalVisible(false);
     }
   };
@@ -66,7 +66,7 @@ const LoginScreen = ({ setCadastro }) => {
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Text style={styles.forgotPasswordText}>Esqueci a Senha</Text>
         </TouchableOpacity>
-
+      
        
         <Modal
           transparent={true}

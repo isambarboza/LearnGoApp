@@ -4,7 +4,7 @@ import TelaCadastro from "../Pages/TelaCadastro";
 export const AuthContext = createContext(0);
 
 function AuthProvider({ children }) {
-    const [logado, setLogado] = useState(true);
+    const [logado, setLogado] = useState(false);
     const [error, setError] = useState(false);
     const [cadastro, setCadastro ] = useState( false );
     const [ user, setUser ] = useState();
@@ -13,7 +13,7 @@ function AuthProvider({ children }) {
     async function Login(email, senha) {
 
         if (email != "" && senha != "") {
-            await fetch( "http://10.139.75.63:5251/api/Cadastro/Login", {
+            await fetch( process.env.EXPO_PUBLIC_URL + "api/Cadastro/Login", {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -30,7 +30,7 @@ function AuthProvider({ children }) {
                     setUser( json );
                 }
                 )
-                .catch(err => setError(true))
+                .catch(err => console.log( err ) )
         } else {
             setError(true)
         }

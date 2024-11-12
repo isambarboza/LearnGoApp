@@ -6,7 +6,7 @@ import moment from 'moment';
 import "moment/locale/pt-br";
 moment.locale("pt-br");
 
-export default function SelectData({ label }) {
+export default function SelectData({ label, saveDate }) {
     const [date, setDate] = useState(new Date());
     const [show, setShow] = useState(false);
 
@@ -14,6 +14,7 @@ export default function SelectData({ label }) {
         const currentDate = selectedDate || date; 
         setShow(false);
         setDate(currentDate);
+        saveDate( currentDate );
     }
 
     return (

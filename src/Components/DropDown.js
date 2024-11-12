@@ -1,18 +1,39 @@
 import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SelectDropdown from 'react-native-select-dropdown';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
-export default function DropDown({ data, label }) {
+export default function DropDown({ data, label, setId, selecionado }) {
+    const[ faculdadeNome, setFaculdadeNome ] = useState("");
+
+    useEffect( () => {
+        if( selecionado > 0 && data.length > 0 ) {
+            const faculdade = data.filter( item => ( item.faculdadeId == selecionado ) );
+            if( faculdade ) {
+                setFaculdadeNome( faculdade[0].faculdadeNome );
+            }
+        }
+        
+    }, [selecionado, data ] )
+
     return (
         <SelectDropdown
             data={data}
+            onSelect={(selectedItem, index) => {
+                if( selectedItem.faculdadeId  ){
+                    setId( selectedItem );
+                }
+                
+              }}
             renderButton={(selectedItem, isOpened) => {
                 return (
                     <View style={css.select}>
                         <Text style={css.label}>{label}</Text>
                         <Text style={css.text}>
-                            {selectedItem ? selectedItem.title : "Selecione"}
+                            { ( selectedItem && selectedItem.faculdadeNome ) && selectedItem.faculdadeNome }
+                            { selecionado && !selectedItem && faculdadeNome }
+                            { (!selectedItem && !selecionado ) &&  "Selecionado" }
+
                         </Text>
                         <Icon name={isOpened ? "chevron-up" : "chevron-down"} color="#DFD8FF" />
                     </View>
@@ -20,9 +41,15 @@ export default function DropDown({ data, label }) {
             }}
             renderItem={(item, index, isSelected) => {
                 return (
+                    item.faculdadeNome ? 
+                    <View style={{ ...css.dropdownItemStyle, ...(isSelected && { backgroundColor: '#DFD8FF' }) }}>
+                        <Text style={css.dropdownItemTxtStyle}>{item.faculdadeNome}</Text>
+                    </View>
+                    :
                     <View style={{ ...css.dropdownItemStyle, ...(isSelected && { backgroundColor: '#DFD8FF' }) }}>
                         <Text style={css.dropdownItemTxtStyle}>{item.title}</Text>
                     </View>
+                    
                 );
             }}
             showsVerticalScrollIndicator={false}
