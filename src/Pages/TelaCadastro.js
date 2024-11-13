@@ -99,7 +99,7 @@ const TelaCadastro = ({ setCadastro }) => {
                 <TextInput
                     style={styles.input}
                     placeholder="Nome Completo"
-                    placeholderTextColor="#fff"
+                    placeholderTextColor="#c2c2c2"
                     value={nome}
                     onChangeText={(value) => setNome(value)}
                 />
@@ -108,21 +108,21 @@ const TelaCadastro = ({ setCadastro }) => {
                 <TextInput
                     style={styles.input}
                     placeholder="E-mail"
-                    placeholderTextColor="#fff"
+                    placeholderTextColor="#c2c2c2"
                     value={email}
                     onChangeText={(value) => setEmail(value)}
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Registro de Matrícula (RM)"
-                    placeholderTextColor="#fff"
+                    placeholderTextColor="#c2c2c2"
                     value={rm}
                     onChangeText={(value) => setRm(value)}
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Endereço"
-                    placeholderTextColor="#fff"
+                    placeholderTextColor="#c2c2c2"
                     value={endereco}
                     onChangeText={(value) => setEndereco(value)}
                 />
@@ -132,14 +132,14 @@ const TelaCadastro = ({ setCadastro }) => {
                 <TextInput
                     style={styles.input}
                     placeholder="Curso"
-                    placeholderTextColor="#fff"
+                    placeholderTextColor="#c2c2c2"
                     value={curso}
                     onChangeText={(value) => setCurso(value)}
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Senha"
-                    placeholderTextColor="#fff"
+                    placeholderTextColor="#c2c2c2"
                     secureTextEntry
                     value={senha}
                     onChangeText={(value) => setSenha(value)}
@@ -184,14 +184,14 @@ const styles = StyleSheet.create({
         letterSpacing: 1.5,
     },
     input: {
-        height: 45,
+        height: 55,
         borderColor: '#20164d',
-        borderWidth: 1,
+        borderWidth: 3,
         borderRadius: 10,
         marginBottom: 15,
         paddingHorizontal: 10,
-        backgroundColor: '#20164d',
-        color: '#fff',
+        backgroundColor: '#fff',
+        color: '#20164d',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,

@@ -39,7 +39,7 @@ const LoginScreen = ({ setCadastro }) => {
         <TextInput
           style={styles.input}
           placeholder="E-mail"
-          placeholderTextColor="#fff"
+          placeholderTextColor="#c2c2c2"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
@@ -49,7 +49,7 @@ const LoginScreen = ({ setCadastro }) => {
         <TextInput
           style={styles.input}
           placeholder="Senha"
-          placeholderTextColor="#fff"
+          placeholderTextColor="#c2c2c2"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
@@ -81,7 +81,7 @@ const LoginScreen = ({ setCadastro }) => {
               <TextInput
                 style={styles.input}
                 placeholder="Digite seu e-mail"
-                placeholderTextColor="#fff"
+                placeholderTextColor="#20164d"
                 value={recoveryEmail}
                 onChangeText={setRecoveryEmail}
                 keyboardType="email-address"
@@ -117,13 +117,13 @@ const styles = StyleSheet.create({
     color: '#20164d',
   },
   input: {
-    borderWidth: 1,
+    borderWidth: 3,
     borderColor: '#20164d',
     borderRadius: 10,
     padding: 10,
     marginVertical: 10,
-    backgroundColor: '#20164d',
-    color: '#fff',
+    backgroundColor: '#fff',
+    color: '#20164d',
   },
   loginButton: {
     backgroundColor: '#ff784e',
