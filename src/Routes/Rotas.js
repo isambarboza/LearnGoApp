@@ -11,6 +11,7 @@ import LoginScreen from '../Pages/TelaLogin';
 import Sobre from '../Pages/Sobre';
 import Perfil from '../Pages/Perfil';
 import TelaFaculdade from '../Pages/TelaFaculdade';
+import Chat from '../Pages/Chat';
 
 
 
@@ -62,6 +63,15 @@ export default function Rotas() {
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="school-outline" color={color} size={size} />
+                        ),
+                    }}
+                />
+                 <Tab.Screen
+                    name="Chat"
+                    component={Chat}
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="message-text-outline" color={color} size={size} />
                         ),
                     }}
                 />

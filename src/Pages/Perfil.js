@@ -126,7 +126,7 @@ const ProfileScreen = () => {
                         value={curso}
                         onChangeText={(value) => setCurso(value)}
                     />
-                    <Text style={styles.labelText}>Email</Text>
+                    <Text style={styles.labelText}>E-mail</Text>
                     <TextInput
                         style={styles.input}
                         value={email}
@@ -144,9 +144,10 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
     scrollContainer: {
         flexGrow: 1,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#f5f5f5',
+        paddingBottom: 30,  // Espaçamento inferior para rolar mais facilmente
     },
     menu: {
         width: '100%',
@@ -155,42 +156,49 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd', // Adicionando uma linha abaixo do menu
     },
     logo: {
         width: 75,
         height: 57,
+        resizeMode: 'contain', // Garantindo que o logo se ajuste sem distorção
     },
     profileContainer: {
         backgroundColor: '#DFD8FF', // Azul claro
-        borderRadius: 10,
-        padding: 10,
+        borderRadius: 12,
+        padding: 20,
         width: '90%',
         alignItems: 'center',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 5,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
         elevation: 5,
+        marginBottom: 20,
     },
     profileHeader: {
         alignItems: 'center',
         marginBottom: 20,
     },
     profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
+        width: 120,
+        height: 120,
+        borderRadius: 60,
         marginBottom: 10,
         backgroundColor: '#D9D9D9', // Cinza
+        borderWidth: 3,
+        borderColor: '#fff', // Adicionando uma borda branca ao redor da imagem
     },
     nameText: {
         fontSize: 22,
         fontWeight: 'bold',
         color: '#20164d', // Azul escuro
+        textAlign: 'center', // Centralizando o nome
     },
     infoContainer: {
         width: '100%',
-        backgroundColor: '#DFD8FF', // Azul claro
+        backgroundColor: '#fff', // Branco para destacar as informações
         borderRadius: 10,
         padding: 15,
         marginBottom: 20,
@@ -205,34 +213,30 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         color: '#555',
-        marginTop: 10,
-    },
-    detailText: {
-        fontSize: 16,
-        color: '#555',
-        marginBottom: 10,
+        marginTop: 15, // Ajustando o espaçamento para mais clareza
     },
     input: {    
         color: '#555',
         backgroundColor: '#e6e6e6',
         borderRadius: 10,
-        padding: 10,
-        marginBottom: 10,
+        padding: 12,
+        marginBottom: 15,
         width: '100%',
+        fontSize: 16,
     },
     button: {
         backgroundColor: '#ff784e',
         padding: 15,
         borderRadius: 10,
-        marginTop: 10,
-        width: "90%"
+        marginTop: 20,
+        width: '90%',
+        alignItems: 'center', // Garantindo que o texto fique centralizado no botão
     },
     buttonText: {
         color: '#FFFFFF',
-        textAlign: 'center',
         fontWeight: 'bold',
+        fontSize: 16,
     },
-    
 });
 
 export default ProfileScreen;
